@@ -27,6 +27,8 @@ export class SocketService {
     this.socket.emit('post', JSON.stringify(post));
   }
 
+  
+
   public close(): void {
     this.socket.close();
     this.posts$.complete();
