@@ -3,4 +3,5 @@
 export interface Post {
   content: string;
   likeCount: number;
+  id: string;
 }

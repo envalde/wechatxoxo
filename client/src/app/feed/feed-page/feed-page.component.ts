@@ -24,6 +24,6 @@ export class FeedPageComponent implements OnInit, OnDestroy {
 
   addPost(content: string) {
     let likeCount = 0;
-    this.socket.addPost({content, likeCount});
+    this.socket.addPost({ content, likeCount});
   }
 }

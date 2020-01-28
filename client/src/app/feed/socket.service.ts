@@ -15,19 +15,12 @@ export class SocketService {
       posts.unshift(JSON.parse(rawPost));
       this.posts$.next(posts);
     });
-    this.socket.on('previous posts', (rawPosts: string) => {
-      const posts: Post[] = JSON.parse(rawPosts);
-
-      // Reverse the posts to have the correct chronological order (new -> old)
-      this.posts$.next(posts.reverse());
-    })
+  
   }
 
-  public addPost(post: Post) {
+  public addPost(post: object) {
     this.socket.emit('post', JSON.stringify(post));
   }
-
-  
 
   public close(): void {
     this.socket.close();
