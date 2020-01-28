@@ -15,11 +15,15 @@ export class SocketService {
       posts.unshift(JSON.parse(rawPost));
       this.posts$.next(posts);
     });
-  
   }
 
   public addPost(post: object) {
     this.socket.emit('post', JSON.stringify(post));
+  }
+
+  public plusLike(postId:String){
+    this.socket.emit('like',postId);
+    
   }
 
   public close(): void {

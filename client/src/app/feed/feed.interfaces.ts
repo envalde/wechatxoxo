@@ -5,3 +5,9 @@ export interface Post {
   likeCount: number;
   id: string;
 }
+
+export interface User {
+  username: string;
+  password: string;
+  id: string;
+}

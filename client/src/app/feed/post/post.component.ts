@@ -8,6 +8,7 @@ import {Post} from "../feed.interfaces";
 })
 export class PostComponent implements OnInit {
   @Input() public post: Post | null = null;
+  
 
   constructor() {
   }

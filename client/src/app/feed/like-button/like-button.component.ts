@@ -1,19 +1,29 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import {SocketService} from "../socket.service";
+
+
 
 @Component({
   selector: 'app-like-button',
   templateUrl: './like-button.component.html',
   styleUrls: ['./like-button.component.scss']
 })
-export class LikeButtonComponent implements OnInit {
+export class LikeButtonComponent implements OnInit,OnDestroy {
 
+  @Input() likeId: String;
   
-  constructor() { }
+  constructor(private socket: SocketService) { }
 
   ngOnInit() {
   }
+
+  ngOnDestroy(): void {
+    this.socket.close();
+  }
   
-  plusLike(postId){
+  plusLike(postId:String){
+    console.log(postId);
+    this.socket.plusLike(postId);
     
   }
 

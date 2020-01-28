@@ -56,15 +56,22 @@ io.on('connection', socket => {
             const postId = 'post:'+res;
             console.log(postId);
             redisClient.hmset(postId,post);
+            post['id'] = postId;
+            io.emit('post', JSON.stringify(post));
         });
-        // Send Post to everyone
-        io.emit('post', JSON.stringify(post));
+        
     });
 
 
     //like a post
-    socket.on('likePost', postId =>{
-        
+    socket.on('like', postId =>{
+        console.log(postId);
+        redisClient.hincrby(postId,'likeCount',1);
+        /* redisClient.hgetall(postId,(err,post)=>{
+            consoleError(err);
+            post['id'] = postId;
+            io.emit('post',JSON.stringify(post));
+        }); */
     });
 
 
