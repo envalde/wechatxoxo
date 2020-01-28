@@ -34,10 +34,15 @@ app.get('/', (req, res) => {
 });
 
 
-
 io.on('connection', socket => {
     console.log('a user connected');
-    
+    socket.on('addUser', user =>{
+        
+    });
+
+
+
+    // send all posts
     redisClient.keys('post:*',(err,posts)=>{
         consoleError(err);
         posts.forEach(postKey => {
@@ -48,15 +53,18 @@ io.on('connection', socket => {
             });
         });
     });
+    
 
     socket.on('post', postAsJson => {
         const post = JSON.parse(postAsJson);
         console.log(post);
+        
         redisClient.incr('next_post_id',(err, res) =>{
-            const postId = 'post:'+res;
-            console.log(postId);
-            redisClient.hmset(postId,post);
-            post['id'] = postId;
+            consoleError(err);
+            const postKey = 'post:'+res;
+            console.log(postKey);
+            redisClient.hmset(postKey,post);
+            post['id'] = postKey;
             io.emit('post', JSON.stringify(post));
         });
         
