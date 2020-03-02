@@ -3,6 +3,8 @@ const http = require("http").createServer(app);
 const io = require("socket.io")(http);
 const redis = require("redis");
 
+
+const dbname = "10-tweety";
 // Create new redis database client -> if you need other connection options, please specify here
 const redisClient = redis.createClient({
   url:
@@ -37,51 +39,77 @@ app.get("/", (req, res) => {
   res.send("It works!");
 });
 
-io.on("connection", socket => {
-  console.log("a user connected");
-  socket.on("addUser", user => {});
 
-  // send all posts
-  redisClient.keys("post:*", (err, posts) => {
+
+io.on('connection', socket => {
+  console.log('a user connected to tweety. Every Post from Redis Database will be published');
+
+  redisClient.lrange(dbname, 0, -1, (err, PostJsonStrings) =>{
     consoleError(err);
-    posts.forEach(postKey => {
-      redisClient.hgetall(postKey, (err, post) => {
-        post["id"] = postKey;
-        io.emit("post", JSON.stringify(post));
+
+    const objects = PostJsonStrings.map(string => JSON.parse(string));
+    
+    console.log('alle Posts werden weitergegeben');
+    socket.emit('previous posts', JSON.stringify(objects));
+
+  });
+
+
+
+    socket.on('post', postJson => {
+      //var postcounter = 0;
+      console.log('versuche zu posten');
+
+      const post = JSON.parse(postJson);
+      redisClient.incr("next_post_id", (err, res) => {
+        consoleError(err);
+
+        post.id = res;
+        redisClient.rpush(dbname, JSON.stringify(post));
+        io.emit('post', JSON.stringify(post));
         console.log(post);
       });
+
     });
-  });
 
-  socket.on("post", postAsJson => {
-    const post = JSON.parse(postAsJson);
-    console.log(post);
+    socket.on('like', id => {
+      console.log("Post mit der ID " +  id + "wurde geliket");
+      redisClient.lrange(dbname, 0, -1, (err, postJson) => {
+        consoleError(err);
 
-    redisClient.incr("next_post_id", (err, res) => {
-      consoleError(err);
-      const postKey = "post:" + res;
-      console.log(postKey);
-      redisClient.hmset(postKey, post);
-      post["id"] = postKey;
-      io.emit("post", JSON.stringify(post));
+        var objects = postJson.map(string => JSON.parse(string));
+        var counter = 0;
+        var index = 0;
+        var likedpost;
+
+      objects.forEach(Element =>{
+        if (Element.id === id){
+          index = counter;
+          likedpost = Element;
+          console.log(Element);
+        }
+        counter++;
+      });
+
+      likedpost.likeCount += 1;
+
+      console.log(likedpost);
+      redisClient.lset(dbname, index, JSON.stringify(likedpost));
+      io.emit('previous posts', JSON.stringify(objects));
+      console.log("daten wurden in der Datenbank gespeichert");
+      });
+
     });
-  });
 
-  //like a post
-  socket.on("like", postId => {
-    console.log(postId);
-    redisClient.hincrby(postId, "likeCount", 1);
-    /* redisClient.hgetall(postId,(err,post)=>{
-            consoleError(err);
-            post['id'] = postId;
-            io.emit('post',JSON.stringify(post));
-        }); */
-  });
+    socket.on('disconnect', () => {
+      console.log('user disconnected from service');
+    });
 
-  socket.on("disconnect", () => {
-    console.log("user disconnected");
-  });
+    
+
+
 });
+
 
 http.listen(3000, function() {
   console.log("listening on *:3000");

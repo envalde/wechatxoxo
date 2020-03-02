@@ -1,11 +1,11 @@
 <div *ngIf="post != null" class="card post">
-  
-  <div class="card-body">
+  <div class="card-body" id="test">
     {{post.content}}
+    {{post.likeCount}}
     
   </div>
 
-  <app-like-button [likeId] = 'post.id'></app-like-button>{{post.likeCount}}
+  <app-like-button [likeId] = 'post.id'></app-like-button>
   <div>
     
   </div>

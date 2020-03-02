@@ -3,6 +3,7 @@ import * as io from 'socket.io-client';
 import {environment} from "../../environments/environment";
 import {Post} from "./feed.interfaces";
 import {BehaviorSubject} from "rxjs";
+//import { post } from 'selenium-webdriver/http';
 
 @Injectable()
 export class SocketService {
@@ -15,14 +16,19 @@ export class SocketService {
       posts.unshift(JSON.parse(rawPost));
       this.posts$.next(posts);
     });
+    this.socket.on('previous posts', (rawPosts: string) => {
+      const posts:  Post[] = JSON.parse(rawPosts);
+      this.posts$.next(posts.reverse());
+    });
   }
 
   public addPost(post: object) {
     this.socket.emit('post', JSON.stringify(post));
   }
 
-  public plusLike(postId:String){
-    this.socket.emit('like',postId);
+  public plusLike(plusLike: number){
+    this.socket.emit('like',plusLike);
+    console.log('like Daten werden gesendet ID: ' + plusLike);
     
   }
 

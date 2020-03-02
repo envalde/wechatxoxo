@@ -1,6 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Post} from "../feed.interfaces";
 import {SocketService} from "../socket.service";
+import {PostComponent} from '../post/post.component';
+
 
 @Component({
   selector: 'app-feed-page',
@@ -10,12 +12,17 @@ import {SocketService} from "../socket.service";
 })
 export class FeedPageComponent implements OnInit, OnDestroy {
   public posts: Post[] = [];
+  
+  //ids der Posts werden gespeichert, und es werden nur abgeschickt wenn id nicht in dem Array ist.
+  public likes: number[] = [];
+  public dislikes: number[] = [];
 
   constructor(private socket: SocketService) {
   }
 
   ngOnInit(): void {
     this.socket.posts$.subscribe(posts => this.posts = posts);
+
   }
 
   ngOnDestroy(): void {
@@ -24,6 +31,10 @@ export class FeedPageComponent implements OnInit, OnDestroy {
 
   addPost(content: string) {
     let likeCount = 0;
-    this.socket.addPost({ content, likeCount});
+    let id = 1;
+    this.socket.addPost({ content, likeCount, id});
+  }
+  likePost(id: number){
+    
   }
 }

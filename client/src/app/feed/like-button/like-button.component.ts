@@ -18,10 +18,9 @@ export class LikeButtonComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.socket.close();
   }
   
-  plusLike(postId:String){
+  plusLike(postId: number){
     console.log(postId);
     this.socket.plusLike(postId);
     

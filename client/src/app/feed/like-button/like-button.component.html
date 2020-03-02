@@ -1,5 +1,5 @@
-<form (submit)="$event.preventDefault(); plusLike(likeId)">
-  <button type="submit" class="btn btn-primary">
+<form (click)="$event.preventDefault();">
+  <button type="click" (click)="$event.preventDefault(); plusLike(likeId)" class="btn btn-primary">
     Like
   </button>
 </form>

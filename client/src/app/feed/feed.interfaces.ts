@@ -3,7 +3,7 @@
 export interface Post {
   content: string;
   likeCount: number;
-  id: string;
+  id: number;
 }
 
 export interface User {
