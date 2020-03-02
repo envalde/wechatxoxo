@@ -3,11 +3,6 @@
 export interface Post {
   content: string;
   likeCount: number;
+  dislikeCount: number;
   id: number;
-}
-
-export interface User {
-  username: string;
-  password: string;
-  id: string;
 }

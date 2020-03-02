@@ -26,11 +26,26 @@ export class SocketService {
     this.socket.emit('post', JSON.stringify(post));
   }
 
-  public plusLike(plusLike: number){
-    this.socket.emit('like',plusLike);
-    console.log('like Daten werden gesendet ID: ' + plusLike);
+  public plusLike(id: number){
+    this.socket.emit('plus like', id);
+    console.log('like Daten werden gesendet ID: ' + id);
     
   }
+  public plusDislike(id: number){
+    this.socket.emit('plus dislike', id);
+    console.log('Dislike Daten werden gesendet ID: ' + id);
+  }
+
+
+  // public minusLike(id: number){
+  //   this.socket.emit('minus like', id);
+  //   console.log("Daten um Likes zu verringern wurde gesendet. ID: " + id);
+
+  // }
+  // public minusDislike(id: number){
+  //   this.socket.emit('minus dislike', id);
+  //   console.log('daten um Dislikes zu verringern wurde gesendet. ID: ' + id);
+  // }
 
   public close(): void {
     this.socket.close();

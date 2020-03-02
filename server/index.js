@@ -43,6 +43,9 @@ app.get("/", (req, res) => {
 
 io.on('connection', socket => {
   console.log('a user connected to tweety. Every Post from Redis Database will be published');
+  //redisClient.del(dbname);
+
+
 
   redisClient.lrange(dbname, 0, -1, (err, PostJsonStrings) =>{
     consoleError(err);
@@ -50,6 +53,7 @@ io.on('connection', socket => {
     const objects = PostJsonStrings.map(string => JSON.parse(string));
     
     console.log('alle Posts werden weitergegeben');
+    console.log(objects);
     socket.emit('previous posts', JSON.stringify(objects));
 
   });
@@ -72,8 +76,8 @@ io.on('connection', socket => {
 
     });
 
-    socket.on('like', id => {
-      console.log("Post mit der ID " +  id + "wurde geliket");
+    socket.on('plus like', id => {
+      console.log("Post mit der ID " +  id + "wurde geliked");
       redisClient.lrange(dbname, 0, -1, (err, postJson) => {
         consoleError(err);
 
@@ -103,6 +107,34 @@ io.on('connection', socket => {
 
     socket.on('disconnect', () => {
       console.log('user disconnected from service');
+    });
+
+    socket.on('plus dislike', id =>{
+      console.log('Post mit der ID ' + id + " wurde gedisliked");
+
+      redisClient.lrange(dbname, 0, -1, (err, postJson) => {
+        consoleError(err);
+
+        var objects = postJson.map(string => JSON.parse(string));
+        var counter = 0;
+        var index = 0;
+        var dislikedpost;
+
+        objects.forEach(Element =>{
+          if (Element.id === id){
+            index = counter;
+            dislikedpost = Element;
+          }
+          counter++;
+        });
+
+        dislikedpost.dislikeCount +=1;
+
+        redisClient.lset(dbname, index, JSON.stringify(dislikedpost));
+        io.emit('previous posts', JSON.stringify(objects));
+        console.log('Daten wurden in der Datenbank gespeichert');
+      });
+
     });
 
     

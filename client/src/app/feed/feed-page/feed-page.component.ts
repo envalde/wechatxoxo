@@ -4,6 +4,7 @@ import {SocketService} from "../socket.service";
 import {PostComponent} from '../post/post.component';
 
 
+
 @Component({
   selector: 'app-feed-page',
   templateUrl: './feed-page.component.html',
@@ -12,11 +13,12 @@ import {PostComponent} from '../post/post.component';
 })
 export class FeedPageComponent implements OnInit, OnDestroy {
   public posts: Post[] = [];
-  
-  //ids der Posts werden gespeichert, und es werden nur abgeschickt wenn id nicht in dem Array ist.
+
   public likes: number[] = [];
   public dislikes: number[] = [];
 
+  
+  
   constructor(private socket: SocketService) {
   }
 
@@ -24,17 +26,57 @@ export class FeedPageComponent implements OnInit, OnDestroy {
     this.socket.posts$.subscribe(posts => this.posts = posts);
 
   }
+  plusLike(postId: number){
+
+    this.socket.plusLike(postId);
+    // if (!this.likes.includes(postId)){
+    //   console.log('Post noch nicht geliked von Benutzer');
+    //   this.socket.plusLike(postId);
+    //   this.likes.push(postId);
+    //   console.log(this.likes);
+    // }else{
+    //   console.log('Post wurde schon geliked');
+    // }
+
+    
+    
+    
+    // Wenn Post nicht in Like Array 
+    // console.log(this.likes);
+    // if(!this.likes.includes(postId)){
+    //   //Wenn Post in dislike Array
+    //   if(this.dislikes.includes(postId)){
+    //     this.socket.minusDislike(postId);
+    //   }
+    //   this.socket.plusLike(postId);
+    //   this.likes.push(postId);
+    // }
+  }
+
+  plusDislike(postId: number){
+
+    this.socket.plusDislike(postId);
+    // if(!this.dislikes.includes(postId)){
+    //   console.log('Post wurde noch nicht gedisliked von Benutzer');
+    //   this.socket.plusDislike(postId);
+    //   this.dislikes.push(postId);
+    //   console.log(this.dislikes);
+
+    // }else{
+    //   console.log('Post wurde schon gedisliked');
+    // }
+      
+  }
 
   ngOnDestroy(): void {
-    this.socket.close();
+   
   }
 
   addPost(content: string) {
     let likeCount = 0;
+    let dislikeCount = 0;
     let id = 1;
-    this.socket.addPost({ content, likeCount, id});
+    this.socket.addPost({ content, likeCount, dislikeCount, id});
   }
-  likePost(id: number){
-    
-  }
+  
 }

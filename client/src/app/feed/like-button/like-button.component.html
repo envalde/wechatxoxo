@@ -3,4 +3,9 @@
     Like
   </button>
 </form>
+<form (click)="$event.preventDefault();">
+  <button type="click" (click)="$event.preventDefault(); plusDislike(likeId)" class="btn btn-primary">
+    Disike
+  </button>
+</form>
 
