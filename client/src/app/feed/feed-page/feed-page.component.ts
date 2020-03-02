@@ -28,43 +28,28 @@ export class FeedPageComponent implements OnInit, OnDestroy {
   }
   plusLike(postId: number){
 
-    this.socket.plusLike(postId);
-    // if (!this.likes.includes(postId)){
-    //   console.log('Post noch nicht geliked von Benutzer');
-    //   this.socket.plusLike(postId);
-    //   this.likes.push(postId);
-    //   console.log(this.likes);
-    // }else{
-    //   console.log('Post wurde schon geliked');
-    // }
-
-    
-    
-    
-    // Wenn Post nicht in Like Array 
-    // console.log(this.likes);
-    // if(!this.likes.includes(postId)){
-    //   //Wenn Post in dislike Array
-    //   if(this.dislikes.includes(postId)){
-    //     this.socket.minusDislike(postId);
-    //   }
-    //   this.socket.plusLike(postId);
-    //   this.likes.push(postId);
-    // }
+    //this.socket.plusLike(postId);
+    if (!this.likes.includes(postId)){
+      console.log('Post noch nicht geliked von Benutzer');
+      this.socket.plusLike(postId);
+      this.likes.push(postId);
+      console.log(this.likes);
+    }else{
+      console.log('Post wurde schon geliked');
+    }
   }
 
   plusDislike(postId: number){
 
-    this.socket.plusDislike(postId);
-    // if(!this.dislikes.includes(postId)){
-    //   console.log('Post wurde noch nicht gedisliked von Benutzer');
-    //   this.socket.plusDislike(postId);
-    //   this.dislikes.push(postId);
-    //   console.log(this.dislikes);
-
-    // }else{
-    //   console.log('Post wurde schon gedisliked');
-    // }
+    //this.socket.plusDislike(postId);
+    if (!this.dislikes.includes(postId)){
+      console.log('Post noch nicht geldisiked von Benutzer');
+      this.socket.plusDislike(postId);
+      this.dislikes.push(postId);
+      console.log(this.dislikes);
+    }else{
+      console.log('Post wurde schon gedisliked');
+    }
       
   }
 

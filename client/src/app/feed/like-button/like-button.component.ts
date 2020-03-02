@@ -16,7 +16,7 @@ export class LikeButtonComponent implements OnInit,OnDestroy {
 
   @Input() likeId: String;
   
-  constructor(private socket: SocketService) { }
+  constructor(private component: FeedPageComponent) { }
 
   ngOnInit() {
   }
@@ -26,11 +26,11 @@ export class LikeButtonComponent implements OnInit,OnDestroy {
   }
   
   plusLike(postId: number){
-    this.socket.plusLike(postId);
+    this.component.plusLike(postId);
   }
 
   plusDislike(postId: number){
-    this.socket.plusDislike(postId);
+    this.component.plusDislike(postId);
       
   }
 }
