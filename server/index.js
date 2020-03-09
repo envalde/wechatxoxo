@@ -53,7 +53,7 @@ io.on('connection', socket => {
     const objects = PostJsonStrings.map(string => JSON.parse(string));
     
     console.log('alle Posts werden weitergegeben');
-    console.log(objects);
+    //console.log(objects);
     socket.emit('previous posts', JSON.stringify(objects));
 
   });
@@ -133,6 +133,29 @@ io.on('connection', socket => {
         redisClient.lset(dbname, index, JSON.stringify(dislikedpost));
         io.emit('previous posts', JSON.stringify(objects));
         console.log('Daten wurden in der Datenbank gespeichert');
+      });
+
+    });
+
+    socket.on('get_hashtag', content => {
+      console.log('es wurde ein hashtag aufruf getätigt');
+      console.log(content);
+
+      var hasthtag_posts = [];
+
+      redisClient.lrange(dbname, 0, -1, (error, JsonPosts) => {
+        consoleError(error);
+        var objects = JsonPosts.map( string => JSON.parse(string));
+
+        objects.forEach( post => {
+          var text = post.content.toLowerCase();
+          if(text.includes(content.toLowerCase())){
+            hasthtag_posts.push(post);
+          }
+         
+        });
+
+        io.emit('hashtag', JSON.stringify(hasthtag_posts));
       });
 
     });

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Post } from '../ht.interfaces';
 
 @Component({
   selector: 'app-ht-post',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ht-post.component.scss']
 })
 export class HtPostComponent implements OnInit {
+  @Input() public post: Post | null = null;
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
 }

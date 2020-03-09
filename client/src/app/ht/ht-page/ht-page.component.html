@@ -1,4 +1,4 @@
-<form (submit)="$event.preventDefault(); addPost(postContent.value)">
+<form (submit)="$event.preventDefault(); search_ht(postContent.value)">
     <div class="form-group">
       <label class="sr-only" for="postContent">Nach welche #Hashtag willst du suchen?</label>
       <textarea #postContent class="form-control" id="postContent" placeholder="Write down your Hashtag like '#Corona'..."
@@ -13,3 +13,4 @@
     <h1 class="mt-5">No Posts :/</h1>
     <p class="lead">There are no posts, yet! Maybe you should enter your thoughts here...</p>
   </div>
+

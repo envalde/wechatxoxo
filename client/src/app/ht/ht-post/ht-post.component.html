@@ -1,1 +1,17 @@
-<p>ht-post works!</p>
+<div *ngIf="post != null" class="card post">
+    <div class="card-body" id="test">
+      {{post.content}}
+      <br>
+      <br>
+      <br>
+      Anzahl der Personen denen dieser Post gefällt: {{post.likeCount}}
+      <br>
+      Anzahl der Personen denen dieser Post nicht gefällt: {{post.dislikeCount}}
+    </div>
+  
+    
+    <div>
+      
+    </div>
+  </div>
+  
