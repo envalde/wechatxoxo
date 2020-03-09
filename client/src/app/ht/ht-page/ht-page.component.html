@@ -1,6 +1,8 @@
+<h1>#Hashtags</h1><br>
+
 <form (submit)="$event.preventDefault(); search_ht(postContent.value)">
     <div class="form-group">
-      <label class="sr-only" for="postContent">Nach welche #Hashtag willst du suchen?</label>
+      <label class="sr-only" for="postContent">Nach welchem #Hashtag willst du suchen?</label>
       <textarea #postContent class="form-control" id="postContent" placeholder="Write down your Hashtag like '#Corona'..."
                 rows="3" required></textarea>
     </div>
@@ -14,3 +16,4 @@
     <p class="lead">There are no posts, yet! Maybe you should enter your thoughts here...</p>
   </div>
 
+  <app-ht-post *ngFor="let post of posts" [post]="post"></app-ht-post>

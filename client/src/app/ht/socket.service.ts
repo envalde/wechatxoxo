@@ -5,18 +5,20 @@ import { Post } from './ht.interfaces';
 import { BehaviorSubject } from 'rxjs';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SocketService {
   public hashtagPosts$: BehaviorSubject<Post[]> = new BehaviorSubject<Post[]>([]);
   private socket: SocketIOClient.Socket = io(environment.socketHost);
 
   constructor() {
    this.socket.on('hashtag', (rawPost: string) => {
-     const posts = this.hashtagPosts$.getValue();
-     posts.unshift(JSON.parse(rawPost));
-     this.hashtagPosts$.next(posts);
+     //const posts = this.hashtagPosts$.getValue();
+     //posts.unshift(JSON.parse(rawPost));
+     const posts: Post[] = JSON.parse(rawPost);
+
+     console.log('datensatz ist angekommen');
+     console.log(posts);
+     this.hashtagPosts$.next(posts.reverse());
 
    });
 

@@ -16,7 +16,10 @@ export class HtPageComponent implements OnInit, OnDestroy {
   constructor( private socket: SocketService) { }
 
   ngOnInit(): void  {
+    console.log('test');
     this.socket.hashtagPosts$.subscribe(posts => this.posts = posts);
+
+    console.log('ANzahl der Posts: '+ this.posts.length);
   }
 
   ngOnDestroy(){
