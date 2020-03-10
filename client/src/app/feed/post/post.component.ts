@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, AfterViewInit} from '@angular/core';
 import {Post} from "../feed.interfaces";
 
 @Component({
@@ -14,6 +14,18 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.setLinks();
+  }
+  ngAfterViewInit(){
+    this.setLinks();
+  }
+
+  public setLinks(){
+    var text = document.querySelectorAll(".card-body")
+    
+    text.forEach(element => {
+      element.innerHTML = element.innerHTML.replace(/#(\w+)/g, '<a href="/hashtag?content=$1">#$1</a>');
+    });
   }
 
 }

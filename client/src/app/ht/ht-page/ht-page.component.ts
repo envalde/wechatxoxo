@@ -16,6 +16,14 @@ export class HtPageComponent implements OnInit, OnDestroy {
   constructor( private socket: SocketService) { }
 
   ngOnInit(): void  {
+
+    //
+    const querystring = window.location.search;
+    const urlparams = new URLSearchParams(querystring);
+    const hash = urlparams.get('content');
+    const search = '#' + hash;
+
+    this.search_ht(search);
     console.log('test');
     this.socket.hashtagPosts$.subscribe(posts => this.posts = posts);
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
 import { Post } from '../ht.interfaces';
 
 @Component({
@@ -12,6 +12,18 @@ export class HtPostComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.setLinks();
   }
+  ngAfterViewInit(){
+    this.setLinks();
+  }
+  public setLinks(){
+    var text = document.querySelectorAll(".card-body")
+    
+    text.forEach(element => {
+      element.innerHTML = element.innerHTML.replace(/#(\w+)/g, '<a href="/hashtag?content=$1">#$1</a>');
+    });
+  }
+
 
 }
