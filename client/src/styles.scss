@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+.btn {
+  background-color: #1d51ac;
+  margin-left: 10px;
+  border-radius: 0px;
+  border: none;
+}
+.card {
+  background-color: hsl(0, 0%, 99%);
+  border-radius: 0px;
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1),
+    0 0 0 1px rgba(10, 10, 10, 0.02);
+}
+.navbar {
+  height: 60px;
+  background-color: #1d51ac;
+}
+#postContent {
+  border-radius: 0px;
+}
+body {
+  background-color: rgba(123, 123, 123, 0.1);
+}

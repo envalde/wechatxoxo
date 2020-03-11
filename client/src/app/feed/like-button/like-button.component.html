@@ -1,11 +1,20 @@
-<form (click)="$event.preventDefault();">
-  <button type="click" (click)="$event.preventDefault(); plusLike(likeId)" class="btn btn-primary">
-    Like
+<form (click)="$event.preventDefault()">
+  <button
+    type="click"
+    (click)="$event.preventDefault(); plusLike(likeId)"
+    class="btn btn-primary in-line"
+  >
+    👍 Like
   </button>
 </form>
-<form (click)="$event.preventDefault();">
-  <button type="click" (click)="$event.preventDefault(); plusDislike(likeId)" class="btn btn-primary">
-    Dislike
+<br />
+<form (click)="$event.preventDefault()">
+  <button
+    type="click"
+    (click)="$event.preventDefault(); plusDislike(likeId)"
+    class="btn btn-primary"
+  >
+    👎 Dislike
   </button>
 </form>
-
+<br />

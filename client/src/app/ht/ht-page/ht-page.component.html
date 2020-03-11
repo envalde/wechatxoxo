@@ -1,19 +1,31 @@
-<h1>#Search</h1><br>
+<h1>#Search</h1>
+<br />
 
 <form (submit)="$event.preventDefault(); search_ht(postContent.value)">
-    <div class="form-group">
-      <label class="sr-only" for="postContent">Nach welchem #Hashtag willst du suchen?</label>
-      <textarea #postContent class="form-control" id="postContent" placeholder="Write down your Hashtag like '#Corona'..."
-                rows="3" required></textarea>
-    </div>
-  
-    <button class="btn btn-primary" type="submit">Submit</button>
-  </form>
-
-  <!-- Placeholder, if no posts are available -->
-<div *ngIf="posts?.length === 0" class="container">
-    <h1 class="mt-5">No Posts :/</h1>
-    <p class="lead">There are no posts, yet! Maybe you should enter your thoughts here...</p>
+  <div class="form-group">
+    <label class="sr-only" for="postContent"
+      >Nach welchem #Hashtag willst du suchen?</label
+    >
+    <textarea
+      #postContent
+      class="form-control"
+      id="postContent"
+      placeholder="Write down your Hashtag like '#Corona'..."
+      rows="3"
+      required
+    ></textarea>
   </div>
 
-  <app-ht-post *ngFor="let post of posts" [post]="post"></app-ht-post>
+  <button class="btn btn-primary" type="submit">Suchen</button>
+</form>
+
+<!-- Placeholder, if no posts are available -->
+<div *ngIf="posts?.length === 0" class="container">
+  <h1 class="mt-5">Suche nach einem Hashtag!</h1>
+  <p class="lead">
+    Oder erstell doch einfach einen neuen Post mit einem hastag! Einfach #
+    benutzen.
+  </p>
+</div>
+
+<app-ht-post *ngFor="let post of posts" [post]="post"></app-ht-post>
