@@ -43,6 +43,7 @@ app.get("/", (req, res) => {
 
 io.on('connection', socket => {
   console.log('a user connected to tweety. Every Post from Redis Database will be published');
+  //um alle daten in der Datenbank zu löschen
   //redisClient.del(dbname);
 
 
@@ -53,15 +54,15 @@ io.on('connection', socket => {
     const objects = PostJsonStrings.map(string => JSON.parse(string));
     
     console.log('alle Posts werden weitergegeben');
-    //console.log(objects);
-    socket.emit('previous posts', JSON.stringify(objects));
+    //alle Nachrichten weitergeben
+    socket.emit('all', JSON.stringify(objects));
 
   });
 
 
-
+  //empfange die Daten der Nachrichten und speichere sie in der datenbank
     socket.on('post', postJson => {
-      //var postcounter = 0;
+      
       console.log('versuche zu posten');
 
       const post = JSON.parse(postJson);
@@ -71,7 +72,6 @@ io.on('connection', socket => {
         post.id = res;
         redisClient.rpush(dbname, JSON.stringify(post));
         io.emit('post', JSON.stringify(post));
-        console.log(post);
       });
 
     });
@@ -99,7 +99,7 @@ io.on('connection', socket => {
 
       console.log(likedpost);
       redisClient.lset(dbname, index, JSON.stringify(likedpost));
-      io.emit('previous posts', JSON.stringify(objects));
+      io.emit('all', JSON.stringify(objects));
       console.log("daten wurden in der Datenbank gespeichert");
       });
 
@@ -131,7 +131,7 @@ io.on('connection', socket => {
         dislikedpost.dislikeCount +=1;
 
         redisClient.lset(dbname, index, JSON.stringify(dislikedpost));
-        io.emit('previous posts', JSON.stringify(objects));
+        io.emit('all', JSON.stringify(objects));
         console.log('Daten wurden in der Datenbank gespeichert');
       });
 

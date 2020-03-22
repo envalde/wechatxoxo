@@ -16,7 +16,7 @@ export class SocketService {
       posts.unshift(JSON.parse(rawPost));
       this.posts$.next(posts);
     });
-    this.socket.on('previous posts', (rawPosts: string) => {
+    this.socket.on('all', (rawPosts: string) => {
       const posts:  Post[] = JSON.parse(rawPosts);
       this.posts$.next(posts.reverse());
     });
@@ -35,17 +35,6 @@ export class SocketService {
     this.socket.emit('plus dislike', id);
     console.log('Dislike Daten werden gesendet ID: ' + id);
   }
-
-
-  // public minusLike(id: number){
-  //   this.socket.emit('minus like', id);
-  //   console.log("Daten um Likes zu verringern wurde gesendet. ID: " + id);
-
-  // }
-  // public minusDislike(id: number){
-  //   this.socket.emit('minus dislike', id);
-  //   console.log('daten um Dislikes zu verringern wurde gesendet. ID: ' + id);
-  // }
 
   public close(): void {
     this.socket.close();

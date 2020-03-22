@@ -34,3 +34,13 @@ The client web app should now be available at `http://localhost:4200`.
 - [Socket.io](https://socket.io/get-started/chat/)
 - [Redis Node.js Client](https://www.npmjs.com/package/redis)
 - [Redis Commands](https://redis.io/commands)
+
+
+# Zusätzliche Informationen für den Dozenten
+
+Innerhalb des Projekts wurden die folgenden Vorgaben umgesetzt.
+- Like/dislike Buttons
+- das einbinden von Hashtags
+- eine generelle Suchfunktion (normaler Text sowie hashtags) um frühere Posts bei frequentierter Nutzung des Chats schnell wiederzufinden. 
+
+
