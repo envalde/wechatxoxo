@@ -38,7 +38,9 @@ The client web app should now be available at `http://localhost:4200`.
 
 # Zusätzliche Informationen für den Dozenten
 
-Innerhalb des Projekts wurden die folgenden Vorgaben umgesetzt.
+- Die Installationsweise gleicht der des Beispielsprojekts. Dies ist im oberen Teil der Readme zu finden
+
+## Innerhalb des Projekts wurden die folgenden Vorg.aben umgesetzt.
 - Like/dislike Buttons
 - das einbinden von Hashtags
 - eine generelle Suchfunktion (normaler Text sowie hashtags) um frühere Posts bei frequentierter Nutzung des Chats schnell wiederzufinden.
@@ -51,5 +53,7 @@ Innerhalb des Projekts wurden die folgenden Vorgaben umgesetzt.
  
  ## Probleme während des Projekts
  - Es wurde noch nicht mit Angular/Typescript gearbeitet. Deshalb war es schwierig, auf Anhieb im Projekt Fuß zu fassen. Mit gegenseitiger Hilfe von Kommolitonen war es aber im Verlauf des Projektes möglich, sich dort einzuarbeiten.
+ 
+
 
 
