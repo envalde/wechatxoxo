@@ -41,6 +41,15 @@ The client web app should now be available at `http://localhost:4200`.
 Innerhalb des Projekts wurden die folgenden Vorgaben umgesetzt.
 - Like/dislike Buttons
 - das einbinden von Hashtags
-- eine generelle Suchfunktion (normaler Text sowie hashtags) um frühere Posts bei frequentierter Nutzung des Chats schnell wiederzufinden. 
+- eine generelle Suchfunktion (normaler Text sowie hashtags) um frühere Posts bei frequentierter Nutzung des Chats schnell wiederzufinden.
+
+## Vorgehensweise innerhalb des Projekts
+ - Kennenlernen der Funktionalitäten sowie der Implementierung des gegebenen Startprojekts mit Hilfe von Kommolitonen
+ - Implementieren des Like/Dislike - Buttons
+ - Einbinden einer Suchfunktion
+ - Einbetten der Hashtag-Funktion 
+ 
+ ## Probleme während des Projekts
+ - Es wurde noch nicht mit Angular/Typescript gearbeitet. Deshalb war es schwierig, auf Anhieb im Projekt Fuß zu fassen. Mit gegenseitiger Hilfe von Kommolitonen war es aber im Verlauf des Projektes möglich, sich dort einzuarbeiten.
 
 
